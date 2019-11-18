@@ -178,6 +178,9 @@ class ServerlessOfflineDynamoDBStreams {
   }
 
   getTableName(tableEvent) {
+    if (tableEvent.tableName) {
+      return tableEvent.tableName
+    }
     if (typeof tableEvent === 'string' && startsWith('arn:aws:dynamodb', tableEvent))
       return extractTableNameFromARN(tableEvent);
     if (typeof tableEvent.arn === 'string') return extractTableNameFromARN(tableEvent.arn);
